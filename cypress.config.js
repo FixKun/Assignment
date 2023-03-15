@@ -12,7 +12,9 @@ module.exports = defineConfig({
     runMode: 1
   },
   e2e: {
-    setupNodeEvents,
-    specPattern: 'cypress/integration/tests/*Test.{js}' 
+    setupNodeEvents(on, config) {
+      // Implement 
+    },
+    specPattern: ['cypress/integration/tests/*.js'] 
   },
 });
