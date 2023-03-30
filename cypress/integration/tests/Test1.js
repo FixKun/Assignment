@@ -23,13 +23,13 @@ describe('Test suite', () => {
     beforeEach(function() {
         cy.login(this.data.login, this.data.password)
         //teardown
-        // header.clickMailButton()
-        // mainPage.clearFolder('Inbox')
-        // mainPage.clearFolder('Sent')
-        // mainPage.clearTrash()
-        // header.clickDocumentsButton()
-        // docsPage.clearFolder('My documents')
-        // docsPage.clearTrash()
+        header.clickMailButton()
+        mainPage.clearFolder('Inbox')
+        mainPage.clearFolder('Sent')
+        mainPage.clearTrash()
+        header.clickDocumentsButton()
+        docsPage.clearFolder('My documents')
+        docsPage.clearTrash()
       })
 
     it('Test Test', function() {
