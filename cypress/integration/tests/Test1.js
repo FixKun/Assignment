@@ -20,9 +20,22 @@ describe('Test suite', () => {
         })
     })
 
-    it('Test Test', function () {
-            cy.login(this.data.login, this.data.password)
+    beforeEach(function() {
+        cy.login(this.data.login, this.data.password)
+        //teardown
+        header.clickMailButton()
+        mainPage.clearFolder('Inbox')
+        mainPage.clearFolder('Sent')
+        mainPage.clearTrash()
+        header.clickDocumentsButton()
+        docsPage.clearFolder('My documents')
+        docsPage.clearTrash()
+      })
+
+    it('Test Test', function() {
+            
             header.clickMailButton()
+            mainPage.goToFolder('Inbox')
             cy.writeFile(this.data.fileName, this.data.fileBody)
 
             mainPage.getUnreadCount().as('preCount')
@@ -68,14 +81,6 @@ describe('Test suite', () => {
             docsPage.getLatestFileByNameWithDescSort(this.data.fileName).within(() => {
                 cy.get('td').eq(2).should('have.text', this.fileDate)
             })
-            //teardown
-            docsPage.clearFolder('My documents')
-            docsPage.clearTrash()
-            header.clickMailButton()
-            mainPage.clearFolder('Inbox')
-            mainPage.clearFolder('Sent')
-            mainPage.clearTrash()
-
 
         })
     })

@@ -1,7 +1,7 @@
 class Toolbar {
 
     clickButton(toolbarRoot, name){
-        this.getButton(toolbarRoot, name).should('not.have.class', 'tbBtnDisabled').click()
+        this.getButton(toolbarRoot, name).click()
     }
 
     getButton(toolbarRoot, name){

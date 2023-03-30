@@ -26,22 +26,49 @@ class BaseListsPage extends BasePage {
     }
 
     selectAll(){
-        cy.get('div[title="Select all"]').should('be.visible').then(($el) => {
-            if (!$el[0].className.includes('tbBtnActive')) {
-                cy.wrap($el).click()
+        cy.get('body').then(() => {
+            if (Cypress.$('tr.trow').length > 0) {
+                cy.log('Selectable')
+                cy.get('div[title="Select all"]').should('be.visible').then(($el) => {
+                    if (!$el[0].className.includes('tbBtnActive')) {
+                        cy.wrap($el).click()
+                    }
+                })
             }
         })
+
     }
 
     getToolbar(){
         return cy.get('.toolbar')
     }
 
-    deleteSelected(){
+    refresh(){
         toolbar.clickButton(
-            this.getToolbar(), 
-            'Delete'
+            cy.get('.toolbar'), 
+            'Refresh'
             )
+        this.waitForSpinner()
+    }
+
+    deleteSelected(checkIfSelected = true){
+        if (checkIfSelected){
+            cy.get('body').then(() => {
+                if (Cypress.$('tr.selectedRow').length > 0) {
+                    cy.log('Deletable')
+                    toolbar.clickButton(
+                        this.getToolbar(), 
+                        'Delete'
+                        )
+                }
+            })
+
+        } else {
+            toolbar.clickButton(
+                this.getToolbar(), 
+                'Delete'
+                )
+        }
     }
 
     getConfirmationDialog(){
@@ -74,20 +101,24 @@ class BaseListsPage extends BasePage {
 
     clearFolder(name){
         this.goToFolder(name)
+        this.refresh()
         this.selectAll()
         this.deleteSelected()
-        cy.get('body').then(() => {
-            if (Cypress.$('#msgBox').length > 0) this.acceptDialog()
-        })
-        
-        this.waitForSpinner()
+        this.#acceptDialogIfPresent()
     }
 
     clearTrash(){
         this.goToFolder('Trash')
         this.selectAll()
+        this.refresh()
         this.deleteSelected()
-        this.acceptDialog()
+        this.#acceptDialogIfPresent()
+    }
+
+    #acceptDialogIfPresent(){
+        cy.get('body').then(() => {
+            if (Cypress.$('#msgBox').length > 0) this.acceptDialog()
+        })
     }
     
     }

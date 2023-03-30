@@ -1,21 +1,12 @@
 import NavPanel from "./navigationPanel";
-import Toolbar from "./toolbarPage";
 import BaseListsPage from "./baseListsPage";
 
 const nav = new NavPanel
-const toolbar = new Toolbar
 
 class MainMailPage extends BaseListsPage {
 
     getCreateButton(){
         return cy.get('#mailNewBtn')
-    }
-
-    refreshMailbox(){
-        toolbar.clickButton(
-            cy.get('.toolbar'), 
-            'Refresh'
-            )
     }
 
     getNavPanel(){
@@ -62,7 +53,7 @@ class MainMailPage extends BaseListsPage {
 
                 if (newCount > oldCount) return
                 
-                this.refreshMailbox()
+                this.refresh()
                 cy.wait(waitTime)
                 cy.then(() => {
                 iterate(++i)
@@ -72,6 +63,7 @@ class MainMailPage extends BaseListsPage {
         }
         iterate()
     }
+
 }
 
 export default MainMailPage;
