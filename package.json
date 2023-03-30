@@ -9,7 +9,8 @@
   "author": "Ruslan.Zaitsau",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^12.9.0"
+    "cypress": "^12.9.0",
+    "moment": "^2.29.4"
   },
   "dependencies": {
     "all": "^0.0.0"

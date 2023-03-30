@@ -1,3 +1,4 @@
+import moment from "moment/moment";
 import BaseListsPage from "./baseListsPage";
 
 class DocumentsPage extends BaseListsPage{
@@ -28,6 +29,32 @@ class DocumentsPage extends BaseListsPage{
             .filter(`:contains("${name}")`).first()
         }
         
+    }
+    /**
+     * Returns the latest element in the list
+     * @param  {[boolean]} draggable Should be true for Cypress to drag'n'drop this element 
+     * @return {[Chainable]} Either a row with the latest file or draggable part of the row
+     */
+    getLatestFile(draggable = false){
+        var date = 0
+        let dtText
+        cy.get('#doc_list tr.trow td:nth-child(3) div div').each(($el, index, $lst) => {
+
+            var tmpDate = moment($el.text(), "MMM DD, YYYY, LT")
+            if (tmpDate > date){
+                date = tmpDate
+                dtText = $el.text()
+            } 
+            
+          }).then(() =>{
+            cy.contains('tbody tr', dtText).as('row')
+          })
+
+          if (draggable){
+            return cy.get('@row').find('td').eq(1)
+        } else {
+            return cy.get('@row')
+        }
     }
 }
 
