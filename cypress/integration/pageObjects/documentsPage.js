@@ -31,13 +31,16 @@ class DocumentsPage extends BaseListsPage{
         
     }
     /**
-     * Returns the latest element in the list
+     * Returns the latest element in the list by its filename
+     * @param  {[String]} fileName Name of the file to find
      * @param  {[boolean]} draggable Should be true for Cypress to drag'n'drop this element 
-     * @return {[Chainable]} Either a row with the latest file or draggable part of the row
+     * @return {[Chainable]} Either a row with the latest file by its filename or draggable part of the row
      */
-    getLatestFile(draggable = false){
+    getLatestFileByName(fileName, draggable = false){
         var date = 0
         let dtText
+        const name = fileName.split(".").slice(0, -1).join(".")
+        
         cy.get('#doc_list tr.trow td:nth-child(3) div div').each(($el, index, $lst) => {
 
             var tmpDate = moment($el.text(), "MMM DD, YYYY, LT")
@@ -47,7 +50,8 @@ class DocumentsPage extends BaseListsPage{
             } 
             
           }).then(() =>{
-            cy.contains('tbody tr', dtText).as('row')
+            const regexp = new RegExp(`${name}.*${dtText}`, 'g')
+            cy.contains('tbody tr', regexp).as('row')
           })
 
           if (draggable){
