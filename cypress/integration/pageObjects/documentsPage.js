@@ -40,18 +40,21 @@ class DocumentsPage extends BaseListsPage{
         var date = 0
         let dtText
         const name = fileName.split(".").slice(0, -1).join(".")
-        
-        cy.get('#doc_list tr.trow td:nth-child(3) div div').each(($el, index, $lst) => {
-
-            var tmpDate = moment($el.text(), "MMM DD, YYYY, LT")
+        // searching for all rows with file name
+        cy.get('tr.trow')
+        .filter((index, elt) => { 
+            return elt.innerText.match(`.*${name}.*`, 'g') 
+        })
+        // searching for a max datetime within those rows
+        .each(($el, index, $lst) => {
+            var tmpDate = moment($el.find('td:nth-child(3)').text(), "MMM DD, YYYY, LT")
             if (tmpDate > date){
                 date = tmpDate
-                dtText = $el.text()
+                dtText = $el.find('td:nth-child(3)').text()
             } 
-            
+        // returning the resulting row
           }).then(() =>{
-            const regexp = new RegExp(`${name}.*${dtText}`, 'g')
-            cy.contains('tbody tr', regexp).as('row')
+            cy.contains('tbody tr', dtText).as('row')
           })
 
           if (draggable){

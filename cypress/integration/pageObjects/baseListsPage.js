@@ -113,6 +113,8 @@ class BaseListsPage extends BasePage {
         this.refresh()
         this.deleteSelected()
         this.#acceptDialogIfPresent()
+        cy.wait(200)
+        this.waitForSpinner()
     }
 
     #acceptDialogIfPresent(){
