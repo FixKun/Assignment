@@ -23,13 +23,13 @@ describe('Test suite', () => {
     beforeEach(function() {
         cy.login(this.data.login, this.data.password)
         //teardown
-        // header.clickMailButton()
-        // mainPage.clearFolder('Inbox')
-        // mainPage.clearFolder('Sent')
-        // mainPage.clearTrash()
-        // header.clickDocumentsButton()
-        // docsPage.clearFolder('My documents')
-        // docsPage.clearTrash()
+        header.clickMailButton()
+        mainPage.clearFolder('Inbox')
+        mainPage.clearFolder('Sent')
+        mainPage.clearTrash()
+        header.clickDocumentsButton()
+        docsPage.clearFolder('My documents')
+        docsPage.clearTrash()
       })
 
     it('Test Test', function() {
@@ -71,12 +71,6 @@ describe('Test suite', () => {
                     this.fileDate = el.text()
                 })
             })
-            
-            // docsPage.getLatestFileByNameWithDescSort(this.data.fileName).click().within(() => {
-            //     cy.get('td').eq(2).then(el => {
-            //         this.fileDate = el.text()
-            //     })
-            // })
 
             cy.dragndrop(
                 docsPage.getLatestFile(true), 
@@ -87,9 +81,5 @@ describe('Test suite', () => {
             docsPage.getLatestFile().within(() => {
                 cy.get('td').eq(2).should('have.text', this.fileDate)
             })
-            // docsPage.getLatestFileByNameWithDescSort(this.data.fileName).within(() => {
-            //     cy.get('td').eq(2).should('have.text', this.fileDate)
-            // })
-
         })
     })
