@@ -6,7 +6,7 @@ class Toolbar {
 
     getButton(toolbarRoot, name){
         toolbarRoot.within(() => {
-            cy.get('.tbBtn').then(el => {
+            cy.get('.tbBtn').filter(':visible').then(el => {
                 if (el.length <= 4) {
                     cy.get('#toolbar_more').click()
                     cy.contains(name).as('button')
@@ -30,6 +30,20 @@ class Toolbar {
         cy.get('.menu').within(() => {
             cy.contains('Date').click()
         })  
+    }
+
+    sortAsc(toolbarRoot){
+        this.openSortOption(toolbarRoot)
+        cy.get('.menu').within(() => {
+            cy.contains('Ascending').click()
+        }) 
+    }
+
+    sortDesc(toolbarRoot){
+        this.openSortOption(toolbarRoot)
+        cy.get('.menu').within(() => {
+            cy.contains('Descending').click()
+        }) 
     }
 }
 

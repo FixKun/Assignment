@@ -53,19 +53,19 @@ describe('Test suite', () => {
             mailPage.clickSaveInPopup()
             header.clickDocumentsButton()
             var fileDate
-            docsPage.getLatestFileByName(this.data.fileName).click().within(() => {
+            docsPage.getLatestFileByNameWithDescSort(this.data.fileName).click().within(() => {
                 cy.get('td').eq(2).then(el => {
                     this.fileDate = el.text()
                 })
             })
 
             cy.dragndrop(
-                docsPage.getLatestFileByName(this.data.fileName).find('td').eq(1), 
+                docsPage.getLatestFileByNameWithDescSort(this.data.fileName, true), 
                 docsPage.getFolder('Trash')
                 )
             docsPage.goToFolder('Trash')
             // check that file is there
-            docsPage.getLatestFileByName(this.data.fileName).within(() => {
+            docsPage.getLatestFileByNameWithDescSort(this.data.fileName).within(() => {
                 cy.get('td').eq(2).should('have.text', this.fileDate)
             })
             //teardown

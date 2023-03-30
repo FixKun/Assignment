@@ -27,15 +27,19 @@ class BaseListsPage extends BasePage {
 
     selectAll(){
         cy.get('div[title="Select all"]').should('be.visible').then(($el) => {
-            if (!$el[0].classList.contains('tbBtnActive')) {
+            if (!$el[0].className.includes('tbBtnActive')) {
                 cy.wrap($el).click()
             }
         })
     }
 
+    getToolbar(){
+        return cy.get('.toolbar')
+    }
+
     deleteSelected(){
         toolbar.clickButton(
-            cy.get('.toolbar'), 
+            this.getToolbar(), 
             'Delete'
             )
     }
@@ -56,8 +60,16 @@ class BaseListsPage extends BasePage {
         })
     }
 
+    sortAsc(){
+        toolbar.sortAsc(this.getToolbar())
+    }
+
+    sortDesc(){
+        toolbar.sortDesc(this.getToolbar())
+    }
+
     sortListByDate(){
-        toolbar.sortByDate(cy.get('.toolbar'))
+        toolbar.sortByDate(this.getToolbar())
     }
 
     clearFolder(name){
