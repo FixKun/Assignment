@@ -21,7 +21,11 @@ describe('Test suite', () => {
     })
 
     beforeEach(function() {
-        cy.login(this.data.login, this.data.password)
+        const password = Cypress.env('password')
+        if (typeof password !== 'string' || !password) {
+            throw new Error('Missing password value, set using $env:CYPRESS_password = ...')
+          }
+        cy.login(this.data.login, password)
         //teardown
         header.clickMailButton()
         mainPage.clearFolder('Inbox')

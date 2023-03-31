@@ -31,7 +31,7 @@ const loginPage = new LoginPage()
 Cypress.Commands.add('login', (login, password) => {
     cy.visit(Cypress.env('url') + "/sw?type=L&state=0")
     loginPage.getLoginField().type(login)
-    loginPage.getPasswordField().type(password)
+    loginPage.getPasswordField().type(password, {log: false})
     loginPage.clickLoginButton()
     // making sure language is English
     cy.setCookie('ContactOfficeLocale', 'en_US')
