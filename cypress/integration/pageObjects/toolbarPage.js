@@ -1,11 +1,11 @@
 class Toolbar {
 
-    clickButton(toolbarRoot, name){
-        this.getButton(toolbarRoot, name).click()
+    clickButton(name){
+        this.getButton(name).click()
     }
 
-    getButton(toolbarRoot, name){
-        toolbarRoot.within(() => {
+    getButton(name){
+        cy.get('.toolbar').within(() => {
             cy.get('.tbBtn').filter(':visible').then(el => {
                 if (el.length <= 4) {
                     cy.get('#toolbar_more').click()
@@ -19,28 +19,28 @@ class Toolbar {
         return cy.get('@button')
     }
 
-    openSortOption(toolbarRoot){
-        toolbarRoot.within(() => {
+    openSortOption(){
+        cy.get('.toolbar').within(() => {
             cy.get('.sortBy').click()
         })
     }
 
-    sortByDate(toolbarRoot){
-        this.openSortOption(toolbarRoot)
+    sortByDate(){
+        this.openSortOption()
         cy.get('.menu').within(() => {
             cy.contains('Date').click()
         })  
     }
 
-    sortAsc(toolbarRoot){
-        this.openSortOption(toolbarRoot)
+    sortAsc(){
+        this.openSortOption()
         cy.get('.menu').within(() => {
             cy.contains('Ascending').click()
         }) 
     }
 
-    sortDesc(toolbarRoot){
-        this.openSortOption(toolbarRoot)
+    sortDesc(){
+        this.openSortOption()
         cy.get('.menu').within(() => {
             cy.contains('Descending').click()
         }) 

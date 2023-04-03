@@ -39,15 +39,8 @@ class BaseListsPage extends BasePage {
 
     }
 
-    getToolbar(){
-        return cy.get('.toolbar')
-    }
-
     refresh(){
-        toolbar.clickButton(
-            cy.get('.toolbar'), 
-            'Refresh'
-            )
+        toolbar.clickButton('Refresh')
         this.waitForSpinner()
     }
 
@@ -56,18 +49,12 @@ class BaseListsPage extends BasePage {
             cy.get('body').then(() => {
                 if (Cypress.$('tr.selectedRow').length > 0) {
                     cy.log('Deletable')
-                    toolbar.clickButton(
-                        this.getToolbar(), 
-                        'Delete'
-                        )
+                    toolbar.clickButton('Delete')
                 }
             })
 
         } else {
-            toolbar.clickButton(
-                this.getToolbar(), 
-                'Delete'
-                )
+            toolbar.clickButton('Delete')
         }
     }
 
@@ -88,15 +75,15 @@ class BaseListsPage extends BasePage {
     }
 
     sortAsc(){
-        toolbar.sortAsc(this.getToolbar())
+        toolbar.sortAsc()
     }
 
     sortDesc(){
-        toolbar.sortDesc(this.getToolbar())
+        toolbar.sortDesc()
     }
 
     sortListByDate(){
-        toolbar.sortByDate(this.getToolbar())
+        toolbar.sortByDate()
     }
 
     clearFolder(name){
