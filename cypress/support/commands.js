@@ -35,7 +35,6 @@ Cypress.Commands.add('login', (login, password) => {
     loginPage.clickLoginButton()
     // making sure language is English
     cy.setCookie('ContactOfficeLocale', 'en_US')
-  // is there a way to return HomePage object here to chain from this command in the test?
 }) 
 
 // Saves aliases between tests (and when Cypress not behaving)
@@ -93,3 +92,26 @@ Cypress.Commands.add('dragndrop', function(element, targetElement) {
           })
   })
 })
+
+
+Cypress.Commands.add('generateFixture', (name) => {
+  const faker = require('faker')
+
+  cy.writeFile(`cypress/fixtures/${name}.json`, {
+        'fileBody':`${faker.lorem.words(30)}`,
+        'fileName':`test_${getRandomString()}.txt`,
+        'subject':`${faker.lorem.words(3)} ${faker.datatype.string(5)}`,
+  })
+})
+
+
+function getRandomString(length = 6){
+  var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+  var randomString = ''
+  for (var i = 0; i < length; i++) {
+      var rnum = Math.floor(Math.random() * chars.length);
+      randomString += chars[rnum]
+  }
+
+  return randomString
+}

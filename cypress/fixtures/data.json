@@ -1,7 +1,4 @@
 {
   "login": "cypress_testing",
-  "fileName": "test_file.txt",
-  "fileBody": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius elit diam, at ornare diam pulvinar sit amet. Proin cursus.",
-  "destinationEmail": "cypress_testing@mailfence.com",
-  "mailSubject": "Test mail."
+  "destinationEmail": "cypress_testing@mailfence.com"
 }

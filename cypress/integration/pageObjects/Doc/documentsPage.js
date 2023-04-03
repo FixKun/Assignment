@@ -1,5 +1,5 @@
 import moment from "moment/moment";
-import BaseListsPage from "./baseListsPage";
+import BaseListsPage from "../Common/baseListsPage";
 
 class DocumentsPage extends BaseListsPage{
 
@@ -39,11 +39,10 @@ class DocumentsPage extends BaseListsPage{
     getLatestFileByName(fileName, draggable = false){
         var date = 0
         let dtText
-        const name = fileName.split(".").slice(0, -1).join(".")
         // searching for all rows with file name
         cy.get('tr.trow')
         .filter((index, elt) => { 
-            return elt.innerText.match(`.*${name}.*`, 'g') 
+            return elt.innerText.match(`.*${fileName}.*`, 'g') 
         })
         // searching for a max datetime within those rows
         .each(($el, index, $lst) => {

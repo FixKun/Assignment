@@ -1,12 +1,16 @@
-import NavPanel from "./navigationPanel";
-import BaseListsPage from "./baseListsPage";
+import NavPanel from "../Common/navigationPanel";
+import BaseListsPage from "../Common/baseListsPage";
 
 const nav = new NavPanel
 
 class MainMailPage extends BaseListsPage {
 
-    getCreateButton(){
+    getCreateMailButton(){
         return cy.get('#mailNewBtn')
+    }
+
+    clickCreateMailButton(){
+        this.getCreateMailButton().click()
     }
 
     getNavPanel(){
@@ -19,6 +23,14 @@ class MainMailPage extends BaseListsPage {
     
     getLastUnreadMailRow(){
         return this.getUnreadMailsRows().eq(0)
+    }
+
+    getMailBySubject(subject, unread = true){
+        if (unread){
+            return cy.get('tr.listUnread').contains(subject)
+        } else {
+            return cy.get('tr.trow').contains(subject)
+        }
     }
 
     /**

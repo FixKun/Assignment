@@ -9,7 +9,7 @@ class CreateMailPage {
         cy.get('input[type=file]').selectFile(filePath, { force: true })
     }
 
-    getDestinationEmail(email){
+    getDestinationEmail(){
         return cy.get('#mailTo > input').should('be.visible')
     }
 
@@ -21,8 +21,12 @@ class CreateMailPage {
         cy.get('#mailSubject').should('be.visible').type(subject, {force: true})
     }
 
-    getCreateButton(){
+    getSendButton(){
         return cy.get('#mailSend div.btnCtn')
+    }
+
+    clickSendButton(){
+        this.getSendButton().click()
     }
 
 }

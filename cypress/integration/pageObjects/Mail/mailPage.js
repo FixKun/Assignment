@@ -1,4 +1,4 @@
-import NavPanel from "./navigationPanel"
+import NavPanel from "../Common/navigationPanel"
 
 const nav = new NavPanel
 
