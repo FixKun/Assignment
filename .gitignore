@@ -1,4 +1,4 @@
-test_file.txt
+test_*.txt
 node_modules/*
 downloads/*
 cypress/e2e/*
